@@ -1,6 +1,7 @@
 package com.android.locationtracker
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -37,6 +38,7 @@ class MainActivity : ComponentActivity() {
             }
         }
         askLocationPermission()
+        startLocationService()
     }
 
     private fun askLocationPermission() {
@@ -46,6 +48,14 @@ class MainActivity : ComponentActivity() {
             ) {
                 requestNotificationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
+        }
+    }
+
+    private fun startLocationService() {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) return
+        Intent(applicationContext, LocationService::class.java).apply {
+            action = LocationService.ACTION_START
+            startForegroundService(this)
         }
     }
 }
