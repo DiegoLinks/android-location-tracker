@@ -78,9 +78,6 @@ class LocationService : Service() {
      */
     private fun getNotification(): Notification {
         return NotificationCompat.Builder(this, LOCATION_CHANNEL_ID)
-            .setContentTitle("")
-            .setContentText("")
-            .setSmallIcon(R.drawable.ic_launcher_background)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .build()
