@@ -52,7 +52,8 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun startLocationService() {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) return
+        if(!this.hasLocationPermission()) return
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) return
         Intent(applicationContext, LocationService::class.java).apply {
             action = LocationService.ACTION_START
             startForegroundService(this)

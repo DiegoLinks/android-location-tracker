@@ -65,6 +65,8 @@ class LocationService : Service() {
                 )
             }.launchIn(serviceScope)
 
+        if(!this.hasLocationPermission()) return
+
         startForeground(
             LOCATION_SERVICE_NOTIFICATION_ID,
             getNotification(),
@@ -72,10 +74,6 @@ class LocationService : Service() {
         )
     }
 
-    /**
-     * Apesar dessa notificação nunca ser enviada ao usuário, ela precisa estar configurada corretamente
-     * para que seja mantida pelo sistema e execute o fluxo de envio periódico da localização.
-     */
     private fun getNotification(): Notification {
         return NotificationCompat.Builder(this, LOCATION_CHANNEL_ID)
             .setPriority(NotificationCompat.PRIORITY_LOW)
